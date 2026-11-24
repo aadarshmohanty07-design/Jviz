@@ -1,0 +1,31 @@
+{
+  "id": "array",
+  "title": "Array",
+  "intuition": "A contiguous sequence of memory cells accessed instantly by numeric index.",
+  "whyExists": "Computers store data in RAM addressed sequentially. If you need instantaneous random access to items by their offset without following pointers, contiguous memory is required.",
+  "analogy": "Imagine a row of numbered mailboxes in an apartment lobby: knowing box #5 lets you walk directly to it without inspecting boxes 1 through 4.",
+  "coreIdea": "An <b>Array</b> allocates a contiguous block of memory where each element occupies a fixed number of bytes. The address of element <code>i</code> is computed by <code>baseAddress + i * elementSize</code> in $O(1)$ time. Inserting or deleting in the middle requires shifting trailing elements, costing $O(n)$ time.",
+  "diagramType": "array",
+  "diagramData": [10, 20, 30, 40, 50],
+  "complexity": {
+    "time": {
+      "best": "O(1) access",
+      "average": "O(n) insertion/deletion",
+      "worst": "O(n) search / full shift"
+    },
+    "space": "O(n) contiguous storage",
+    "reason": "Direct pointer arithmetic yields O(1) random access; element shifts dominate dynamic resizing."
+  },
+  "pitfalls": [
+    "Off-by-one errors when iterating from index 0 to length - 1.",
+    "Buffer overflow / IndexOutOfBoundsException when accessing indices outside [0, n - 1].",
+    "High cost of middle insertions due to bulk element copying."
+  ],
+  "playgroundPreset": {
+    "target": "bubbleSort",
+    "input": [12, 5, 8, 3, 19, 7],
+    "mode": "array"
+  },
+  "prev": null,
+  "next": "stack"
+}

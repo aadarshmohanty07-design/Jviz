@@ -7,7 +7,7 @@ import com.google.gson.JsonParser;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import core.Trace;
-import algorithms.BubbleSort;
+import algorithms.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Handles API calls to /api/run
+ * Handles API calls to /api/run with support for all algorithms and data structure operations.
  */
 public class ApiHandler implements HttpHandler {
 
@@ -27,7 +27,6 @@ public class ApiHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         String method = exchange.getRequestMethod();
 
-        // Handle CORS preflight
         if ("OPTIONS".equalsIgnoreCase(method)) {
             sendCorsHeaders(exchange);
             exchange.sendResponseHeaders(204, -1);
@@ -63,21 +62,51 @@ public class ApiHandler implements HttpHandler {
                 }
             }
 
+            JsonObject args = json.has("args") && json.get("args").isJsonObject() ? json.getAsJsonObject("args") : new JsonObject();
+            int targetValue = args.has("targetValue") ? args.get("targetValue").getAsInt() : 14;
+            int k = args.has("k") ? args.get("k").getAsInt() : 3;
+
             Trace trace = null;
 
-            if ("algorithm".equalsIgnoreCase(category)) {
-                switch (target.toLowerCase()) {
-                    case "bubblesort":
-                        trace = BubbleSort.run(arrayInput);
-                        break;
-                    default:
-                        // Fallback or early error
-                        sendError(exchange, 404, "Algorithm '" + target + "' not yet wired. (Available: bubbleSort)");
-                        return;
-                }
-            } else {
-                sendError(exchange, 404, "Structure operation '" + target + "' not yet wired.");
-                return;
+            switch (target.toLowerCase()) {
+                case "bubblesort":
+                    trace = BubbleSort.run(arrayInput);
+                    break;
+                case "selectionsort":
+                    trace = SelectionSort.run(arrayInput);
+                    break;
+                case "insertionsort":
+                    trace = InsertionSort.run(arrayInput);
+                    break;
+                case "mergesort":
+                    trace = MergeSort.run(arrayInput);
+                    break;
+                case "quicksort":
+                    trace = QuickSort.run(arrayInput);
+                    break;
+                case "linearsearch":
+                    trace = LinearSearch.run(arrayInput, targetValue);
+                    break;
+                case "binarysearch":
+                    trace = BinarySearch.run(arrayInput, targetValue);
+                    break;
+                case "twopointers":
+                    trace = TwoPointers.run(arrayInput, targetValue);
+                    break;
+                case "slidingwindow":
+                    trace = SlidingWindow.run(arrayInput, k);
+                    break;
+                case "stack":
+                case "stackops":
+                    trace = StackOps.runDemo(arrayInput);
+                    break;
+                case "queue":
+                case "queueops":
+                    trace = QueueOps.runDemo(arrayInput);
+                    break;
+                default:
+                    sendError(exchange, 404, "Target '" + target + "' not recognized. Available: bubbleSort, selectionSort, insertionSort, mergeSort, quickSort, linearSearch, binarySearch, twoPointers, slidingWindow, stack, queue.");
+                    return;
             }
 
             String responseJson = gson.toJson(trace);

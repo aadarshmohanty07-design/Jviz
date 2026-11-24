@@ -1,0 +1,31 @@
+{
+  "id": "quicksort",
+  "title": "Quick Sort",
+  "intuition": "Pick a pivot, partition smaller elements to the left and larger to the right, and recurse.",
+  "whyExists": "The fastest general-purpose comparison sort in practice due to exceptional cache locality and $O(\\log n)$ in-place call stack overhead.",
+  "analogy": "Organizing students by height: pick one student as the reference, send all shorter students left, all taller students right, then repeat within each group.",
+  "coreIdea": "The <b>partition()</b> subroutine picks a pivot (e.g. <code>a[high]</code>) and reorganizes the range so elements $< \\text{pivot}$ are grouped at the start. The pivot is placed at index <code>i + 1</code>, which becomes its permanent sorted location, and recursive calls sort the subranges.",
+  "diagramType": "array",
+  "diagramData": [10, 80, 30, 90, 40, 50, 70],
+  "complexity": {
+    "time": {
+      "best": "O(n log n) balanced partitions",
+      "average": "O(n log n)",
+      "worst": "O(n²) already sorted with naive pivot"
+    },
+    "space": "O(log n) call stack",
+    "reason": "In-place partitioning with high CPU cache hit rates; degenerate splits trigger quadratic time."
+  },
+  "pitfalls": [
+    "Naive pivot choice on sorted arrays degrades performance to O(n²).",
+    "Quick Sort is NOT stable because swapping over long spans disrupts relative ordering.",
+    "Stack overflow on massive arrays if tail-call optimization isn't applied to the smaller partition."
+  ],
+  "playgroundPreset": {
+    "target": "quickSort",
+    "input": [10, 80, 30, 90, 40, 50, 70],
+    "mode": "array"
+  },
+  "prev": "mergesort",
+  "next": "binarysearch"
+}

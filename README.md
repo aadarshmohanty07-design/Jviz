@@ -13,28 +13,47 @@
 
 ---
 
-## Architecture
+## Core Modes
 
-JVIZ follows an **Event-Trace Architecture**. Algorithms and data structure operations do not manipulate UI elements directly. Instead, the Java engine executes the operations and emits an ordered sequence of deterministic **Trace Events** and **State Snapshots**. The frontend acts as a timeline player that renders micro-events forward and provides **$O(1)$ glitch-free backwards stepping** and timeline scrubbing.
+1. **🗺️ Roadmap Mindmap**:
+   - Interactive SVG concept mindmap connecting topics (Arrays, Searching, Sorting, Stacks & Queues, Trees, Graphs).
+   - Prerequisite relationship edges.
+   - Clickable nodes with status inspector, progress checkmarks persisted in `localStorage`.
+   - Direct deep-links to **"Read Concept"** and **"Open in Playground"**.
 
-```
-+-------------------------------------------------------------------------+
-|                        Browser Frontend (Vanilla JS)                     |
-|  - HTML5 Canvas Renderer (Pan, Zoom, Retina DPI, Drag, Tooltips)        |
-|  - Universal Timeline Controller (Play, Pause, Step Back, Scrub, Speed) |
-|  - Java Code Synchronization Panel (Active Line Highlighting)           |
-+-------------------------------------------------------------------------+
-                                    ▲
-                                    │ JSON Trace Protocol
-                                    ▼
-+-------------------------------------------------------------------------+
-|                          Java Engine (JDK 17+)                          |
-|  - Built-in com.sun.net.httpserver.HttpServer (Zero frameworks)         |
-|  - Vendored Gson 2.10.1 (lib/gson-2.10.1.jar)                           |
-|  - Event-Trace Protocol Engine (core.Trace, core.TraceStep)             |
-|  - Educational DSA Implementations (algorithms/, structures/)           |
-+-------------------------------------------------------------------------+
-```
+2. **📖 Concept Explorer Pages**:
+   - Structured deep-dive articles with 8 standard sections: Title + Intuition, "Why this exists" & analogy, Core idea, Interactive schema blueprint, Asymptotic complexity matrix, Common pitfalls & bugs, "Open in Playground", and Prev/Next sequential navigation.
+
+3. **🎮 Interactive Playground**:
+   - Canvas sandbox with Pan, Zoom, and Box Selection.
+   - **Interactive Array Modifications**:
+     - Insert at any index with neighbor slide-apart animation and visible index renumbering.
+     - Delete at any index with slide-together animation.
+     - Custom draggable named pointers (e.g. `i`, `j`, `head`, `ptr`) that stay attached on insertions/shifts and can be deleted.
+   - **LIFO / FIFO Demo Mode Toggle**:
+     - `Array Mode`: Standard 1D horizontal indexed row.
+     - `Stack (LIFO) Mode`: Vertical bucket growing upward with animated push/pop and **TOP** indicator.
+     - `Queue (FIFO) Mode`: Horizontal tube with animated enqueue/dequeue and **FRONT / REAR** indicators.
+   - **State Persistence**: Save & Load playground state to `localStorage`.
+   - **Mini Command Console**: Supports `push <val>`, `pop`, `enqueue <val>`, `dequeue`, `insert <idx> <val>`, `delete <idx>`, `run <algo>`, `random <size>`, `reset`, `play`, `pause`.
+
+---
+
+## Implemented Algorithms (11 Available)
+
+| # | Algorithm / Structure | Category | Time (Avg) | Space | Description |
+|---|---|---|---|---|---|
+| 1 | **Bubble Sort** | Sorting | $O(n^2)$ | $O(1)$ | Pairwise adjacent comparison & swap |
+| 2 | **Selection Sort** | Sorting | $O(n^2)$ | $O(1)$ | Scan unsorted suffix for minimum element |
+| 3 | **Insertion Sort** | Sorting | $O(n^2)$ | $O(1)$ | Shift elements to insert key into sorted prefix |
+| 4 | **Merge Sort** | Sorting | $O(n \log n)$ | $O(n)$ | Divide-and-conquer recursive split & merge |
+| 5 | **Quick Sort** | Sorting | $O(n \log n)$ | $O(\log n)$ | In-place partition around chosen pivot |
+| 6 | **Linear Search** | Searching | $O(n)$ | $O(1)$ | Sequential scan checking target equality |
+| 7 | **Binary Search** | Searching | $O(\log n)$ | $O(1)$ | Halving search interval on sorted dataset |
+| 8 | **Two Pointers** | Paradigms | $O(n)$ | $O(1)$ | Converging left/right pointers for target pair sum |
+| 9 | **Sliding Window** | Paradigms | $O(n)$ | $O(1)$ | Fixed-window maximal sum subarray of size $k$ |
+| 10 | **Stack (LIFO)** | Structure | $O(1)$ | $O(n)$ | Push / Pop simulation with top pointer tracking |
+| 11 | **Queue (FIFO)** | Structure | $O(1)$ | $O(n)$ | Enqueue / Dequeue simulation with front/rear tracking |
 
 ---
 
@@ -42,7 +61,7 @@ JVIZ follows an **Event-Trace Architecture**. Algorithms and data structure oper
 
 ### Prerequisites
 - JDK 17 or higher (tested on OpenJDK 21)
-- No build tools, No Node.js, No npm required.
+- No Node.js, no npm, no build frameworks required.
 
 ### Windows:
 ```cmd
@@ -61,74 +80,13 @@ java -cp "lib/*;out" Main
 chmod +x run.sh
 ./run.sh
 ```
-Or manual compilation:
-```bash
-javac -cp "lib/*:src/main/java" -d out src/main/java/Main.java src/main/java/core/*.java src/main/java/algorithms/*.java src/main/java/api/*.java
-java -cp "lib/*:out" Main
-```
 
 Open your browser at **http://localhost:8080/**
 
 ---
 
-## Interactive Controls & Keyboard Shortcuts
-
-| Shortcut / Control | Action | Description |
-| :--- | :--- | :--- |
-| `Space` | Play / Pause | Toggle animation playback |
-| `←` (Left Arrow) | Step Backward | Restores previous step snapshot in $O(1)$ |
-| `→` (Right Arrow) | Step Forward | Advances to next step and synchronizes code line |
-| `R` | Reset | Rewinds to step 0 |
-| `Scrubber Bar` | Timeline Scrub | Scrub to any arbitrary step with instant preview |
-| `Speed Selector` | Playback Speed | 0.25×, 0.5×, 1.0×, 2.0×, 4.0× |
-| `Mouse Drag` | Canvas Pan | Drag canvas workspace |
-| `Scroll Wheel` | Canvas Zoom | Smooth zoom in / zoom out |
-| `⛶ Button` | Center View | Re-centers diagram at 1.0× scale |
-
----
-
-## Project Structure
-
-```
-/
-├── .github/workflows/deploy.yml   (Automated GitHub Pages deployment)
-├── README.md                      (Build & run instructions, architecture)
-├── NOTES.md                       (Implementation assumptions & protocol details)
-├── run.bat                        (One-click Windows runner)
-├── run.sh                         (One-click Unix runner)
-├── lib/
-│   └── gson-2.10.1.jar            (Vendored JSON library)
-├── src/main/java/
-│   ├── Main.java                  (Built-in HTTP server & static file routing)
-│   ├── api/
-│   │   └── ApiHandler.java        (CORS-enabled /api/run endpoint)
-│   ├── core/
-│   │   ├── Trace.java             (Response envelope)
-│   │   ├── TraceStep.java         (Discrete step with snapshot)
-│   │   ├── TraceEvent.java        (Micro-event definition)
-│   │   └── TraceBuilder.java      (Fluent trace builder API)
-│   └── algorithms/
-│       └── BubbleSort.java        (Trace-emitting Bubble Sort)
-└── src/main/resources/web/
-    ├── index.html                 (Main application shell)
-    ├── css/
-    │   ├── theme.css              (Smooth white, emerald text, black diagrams)
-    │   ├── layout.css             (Header, view switching, responsive layout)
-    │   └── playground.css         (Canvas toolbar, player bar, code sync)
-    └── js/
-        ├── api.js                 (API client with static web fallback)
-        ├── player.js              (Timeline controller & line sync)
-        ├── app.js                 (App orchestrator & command handler)
-        └── renderers/
-            └── array.js           (Retina canvas array renderer)
-```
-
----
-
-## Development Roadmap
-- [x] **Phase 1 — Skeleton & Protocol**: Java HTTP server, Trace schema, Bubble Sort slice, Canvas array player, code line synchronization, and smooth white / emerald / black theme.
-- [ ] **Phase 2 — Array + Stack/Queue Playground**: Interactivity, pointer dot dragging, LIFO/FIFO mode toggle.
-- [ ] **Phase 3 — Remaining Structures**: Linked List, BST, Heap, Hash Table, Graph, Trie.
-- [ ] **Phase 4 — 15 Algorithms**: Full algorithm suite wired to trace engine.
-- [ ] **Phase 5 — Roadmap & Concept Pages**: Concept mindmap & interactive educational pages.
-- [ ] **Phase 6 — Polish**: Polish, persistence, accessibility.
+## Keyboard Shortcuts
+- `Space`: Play / Pause playback
+- `←` (Left Arrow): Step backward ($O(1)$ state snapshot restore)
+- `→` (Right Arrow): Step forward
+- `R`: Reset timeline to step 0

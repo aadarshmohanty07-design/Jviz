@@ -1,0 +1,32 @@
+{
+  "id": "slidingwindow",
+  "title": "Sliding Window",
+  "intuition": "Maintains a running calculation over a moving contiguous subsegment to eliminate redundant computation.",
+  "whyExists": "Finding optimal subarrays (maximum sum, longest unique substring) without recalculating from scratch for every window.",
+  "analogy": "A magnifying glass sliding across a tape measure: as it slides right, you only look at what enters on the right and what leaves on the left.",
+  "coreIdea": "Instead of recalculating a window sum of size $k$ in $O(k)$ time for each of the $n$ positions ($O(n \\cdot k)$), the window slides by adding the incoming element <code>a[i]</code> and subtracting the departing element <code>a[i - k]</code> in $O(1)$ operations.",
+  "diagramType": "array",
+  "diagramData": [2, 1, 5, 1, 3, 2],
+  "complexity": {
+    "time": {
+      "best": "O(n)",
+      "average": "O(n)",
+      "worst": "O(n)"
+    },
+    "space": "O(1) auxiliary",
+    "reason": "Each element enters the window once and exits the window once."
+  },
+  "pitfalls": [
+    "Window size k larger than array length n without validation.",
+    "Off-by-one errors when subtracting the departing element (a[i - k] vs a[i - k + 1]).",
+    "Failing to track window boundaries accurately when window size is dynamic."
+  ],
+  "playgroundPreset": {
+    "target": "slidingWindow",
+    "input": [2, 1, 5, 1, 3, 2],
+    "args": { "k": 3 },
+    "mode": "array"
+  },
+  "prev": "twopointers",
+  "next": "array"
+}

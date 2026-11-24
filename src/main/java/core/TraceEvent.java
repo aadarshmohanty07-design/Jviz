@@ -61,6 +61,23 @@ public class TraceEvent {
         return e;
     }
 
+    public static TraceEvent insert(Object target, Object value, Object parent, String note) {
+        TraceEvent e = new TraceEvent();
+        e.type = "insert";
+        e.target = target;
+        e.values = new Object[]{value};
+        e.note = note;
+        return e;
+    }
+
+    public static TraceEvent delete(Object target, Object value) {
+        TraceEvent e = new TraceEvent();
+        e.type = "delete";
+        e.target = target;
+        e.values = new Object[]{value};
+        return e;
+    }
+
     public static TraceEvent highlight(int[] indices, String role) {
         TraceEvent e = new TraceEvent();
         e.type = "highlight";

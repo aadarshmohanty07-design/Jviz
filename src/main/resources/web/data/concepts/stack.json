@@ -1,0 +1,31 @@
+{
+  "id": "stack",
+  "title": "Stack (LIFO)",
+  "intuition": "Last-In, First-Out: the most recently added element is always the first one removed.",
+  "whyExists": "Many computational processes need to remember nested states and backtrack in reverse order: function call stacks, undo/redo buffers, and bracket matching.",
+  "analogy": "A spring-loaded plate dispenser in a cafeteria: you can only push a clean plate on top, and you can only take the top plate off.",
+  "coreIdea": "A <b>Stack</b> restricts insertions and deletions to a single end called the <b>TOP</b>. Both <code>push()</code> and <code>pop()</code> operate in strictly $O(1)$ time because no internal elements ever shift.",
+  "diagramType": "stack",
+  "diagramData": [10, 20, 30],
+  "complexity": {
+    "time": {
+      "best": "O(1) push / pop",
+      "average": "O(1) push / pop",
+      "worst": "O(1) push / pop"
+    },
+    "space": "O(n) storage",
+    "reason": "All modifications happen strictly at the top index without memory relocation."
+  },
+  "pitfalls": [
+    "Stack Overflow: pushing onto a fixed-capacity stack that is full.",
+    "Stack Underflow: attempting to pop or peek from an empty stack without checking isEmpty().",
+    "Violating LIFO discipline by attempting random access to middle elements."
+  ],
+  "playgroundPreset": {
+    "target": "stack",
+    "input": [10, 20, 30],
+    "mode": "stack"
+  },
+  "prev": "array",
+  "next": "queue"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "selectionsort",
+  "title": "Selection Sort",
+  "intuition": "Finds the smallest unsorted element in each pass and swaps it directly into its sorted slot.",
+  "whyExists": "Minimizes memory write operations ($O(n)$ swaps total), making it advantageous when write cycles are expensive.",
+  "analogy": "Selecting cards from an unsorted hand: scanning the entire hand for the lowest value and placing it first.",
+  "coreIdea": "Maintains a partition between a sorted prefix <code>[0..i-1]</code> and an unsorted suffix <code>[i..n-1]</code>. In pass <code>i</code>, it scans the suffix to find the minimum value's index <code>minIdx</code> and executes a single swap between <code>a[i]</code> and <code>a[minIdx]</code>.",
+  "diagramType": "array",
+  "diagramData": [29, 10, 14, 37, 13],
+  "complexity": {
+    "time": {
+      "best": "O(n²)",
+      "average": "O(n²)",
+      "worst": "O(n²)"
+    },
+    "space": "O(1) auxiliary",
+    "reason": "Always scans the entire remaining unsorted suffix regardless of initial ordering."
+  },
+  "pitfalls": [
+    "Selection sort is NOT stable in its default form because long-distance swaps can reorder equal elements.",
+    "Updating the minimum value without saving its index minIdx.",
+    "Comparing against a fixed value rather than the moving minimum."
+  ],
+  "playgroundPreset": {
+    "target": "selectionSort",
+    "input": [29, 10, 14, 37, 13],
+    "mode": "array"
+  },
+  "prev": "bubblesort",
+  "next": "insertionsort"
+}

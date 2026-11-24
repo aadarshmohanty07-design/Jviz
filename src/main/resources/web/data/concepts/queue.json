@@ -1,0 +1,31 @@
+{
+  "id": "queue",
+  "title": "Queue (FIFO)",
+  "intuition": "First-In, First-Out: the earliest element added is always served first.",
+  "whyExists": "Asynchronous event queues, print spooling, and Breadth-First Search (BFS) require fair chronological processing without starvation.",
+  "analogy": "A line at a grocery store checkout: the first person to stand in line is the first person served.",
+  "coreIdea": "A <b>Queue</b> maintains two distinct boundaries: <b>FRONT</b> (where elements are removed via <code>dequeue()</code>) and <b>REAR</b> (where elements enter via <code>enqueue()</code>). Array implementations often use modular arithmetic <code>(idx + 1) % capacity</code> to create a circular buffer.",
+  "diagramType": "queue",
+  "diagramData": [5, 12, 19, 28],
+  "complexity": {
+    "time": {
+      "best": "O(1) enqueue / dequeue",
+      "average": "O(1) enqueue / dequeue",
+      "worst": "O(1) enqueue / dequeue"
+    },
+    "space": "O(n) storage",
+    "reason": "Circular pointer wraparound avoids shifting existing elements on dequeue."
+  },
+  "pitfalls": [
+    "Dequeuing from an empty queue without safety guard.",
+    "Neglecting circular wraparound causing artificial overflow when front has advanced.",
+    "Confusing front and rear pointer roles."
+  ],
+  "playgroundPreset": {
+    "target": "queue",
+    "input": [5, 12, 19],
+    "mode": "queue"
+  },
+  "prev": "stack",
+  "next": "bubblesort"
+}

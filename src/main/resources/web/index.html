@@ -34,22 +34,12 @@
       
       <!-- View 1: Roadmap (Mindmap) -->
       <section id="view-roadmap" class="view-section">
-        <div style="padding: 40px; max-width: 900px; margin: 0 auto;">
-          <h2>DSA Concept Roadmap</h2>
-          <p style="color: var(--text-secondary); margin-top: 8px;">
-            Interactive topic mindmap connecting foundational data structures to advanced algorithms.
-          </p>
-        </div>
+        <!-- Rendered dynamically by roadmap.js -->
       </section>
 
-      <!-- View 2: Concept Pages -->
+      <!-- View 2: Concept Pages Explorer -->
       <section id="view-concept" class="view-section">
-        <div style="padding: 40px; max-width: 900px; margin: 0 auto;">
-          <h2>Concept Explorer</h2>
-          <p style="color: var(--text-secondary); margin-top: 8px;">
-            Deep-dive architectural explanations, analogies, and complexity breakdowns.
-          </p>
-        </div>
+        <!-- Rendered dynamically by concept.js -->
       </section>
 
       <!-- View 3: Playground Sandbox (Default Active View) -->
@@ -62,12 +52,21 @@
             <!-- Canvas Toolbar -->
             <div class="canvas-toolbar">
               <div class="canvas-toolbar-group">
-                <span class="toolbar-title">
+                <span class="toolbar-title" id="canvas-algo-title">
                   Bubble Sort
-                  <span class="toolbar-tag">Array</span>
                 </span>
+                
+                <!-- LIFO / FIFO / Array Mode Toggle -->
+                <div class="mode-toggle-group">
+                  <button class="mode-btn active" data-mode="array">Array</button>
+                  <button class="mode-btn" data-mode="stack">Stack (LIFO)</button>
+                  <button class="mode-btn" data-mode="queue">Queue (FIFO)</button>
+                </div>
               </div>
+
               <div class="canvas-toolbar-group">
+                <button id="btn-save-state" style="font-size: 11px; padding: 4px 8px;" title="Save State to LocalStorage">💾 Save</button>
+                <button id="btn-load-state" style="font-size: 11px; padding: 4px 8px;" title="Load State from LocalStorage">📂 Load</button>
                 <button id="btn-reset-view" class="btn-icon" title="Reset View & Center">⛶</button>
               </div>
             </div>
@@ -80,15 +79,15 @@
               <div class="canvas-legend">
                 <div class="legend-item">
                   <div class="legend-swatch swatch-default"></div>
-                  <span>Element</span>
+                  <span>Normal Box</span>
                 </div>
                 <div class="legend-item">
                   <div class="legend-swatch swatch-active"></div>
-                  <span>Comparing</span>
+                  <span>Active Comparison</span>
                 </div>
                 <div class="legend-item">
                   <div class="legend-swatch swatch-sorted"></div>
-                  <span>Sorted</span>
+                  <span>Sorted / Settled</span>
                 </div>
               </div>
 
@@ -138,13 +137,43 @@
 
             <div class="sidebar-content">
               
-              <!-- Input Panel Card -->
+              <!-- 1. Algorithm Selection Card (10+ Algorithms) -->
               <div class="panel-card">
-                <div class="panel-card-title">Data Input</div>
-                <div class="input-row">
+                <div class="panel-card-title">Select Algorithm / Operation</div>
+                <select id="select-algorithm" style="width: 100%; font-weight: 700;">
+                  <optgroup label="Sorting Algorithms">
+                    <option value="bubbleSort" selected>Bubble Sort</option>
+                    <option value="selectionSort">Selection Sort</option>
+                    <option value="insertionSort">Insertion Sort</option>
+                    <option value="mergeSort">Merge Sort</option>
+                    <option value="quickSort">Quick Sort</option>
+                  </optgroup>
+                  <optgroup label="Searching Algorithms">
+                    <option value="linearSearch">Linear Search</option>
+                    <option value="binarySearch">Binary Search</option>
+                  </optgroup>
+                  <optgroup label="Algorithmic Paradigms">
+                    <option value="twoPointers">Two Pointers (Target Sum)</option>
+                    <option value="slidingWindow">Sliding Window (Max Subarray)</option>
+                  </optgroup>
+                  <optgroup label="Data Structure Simulations">
+                    <option value="stack">Stack (LIFO Push/Pop Demo)</option>
+                    <option value="queue">Queue (FIFO Enqueue/Dequeue Demo)</option>
+                  </optgroup>
+                </select>
+
+                <!-- Data Input Row -->
+                <div class="input-row" style="margin-top: 4px;">
                   <input type="text" id="input-data" value="5, 2, 9, 1, 5, 6" placeholder="e.g. 5, 2, 9, 1">
                   <button id="btn-run" class="btn-primary">Run</button>
                 </div>
+
+                <!-- Parameters (Target Value / Window K) -->
+                <div class="input-row" id="args-row" style="margin-top: 2px;">
+                  <input type="number" id="input-arg-val" value="9" placeholder="Target / K" style="width: 90px;">
+                  <span style="font-size: 11px; color: var(--text-secondary); align-self: center;">Target / Window K</span>
+                </div>
+
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
                   <span style="font-size: 11px; font-weight: 600; color: var(--text-secondary);">Size: <b id="size-label">8</b></span>
                   <input type="range" id="size-slider" min="4" max="24" value="8" style="width: 110px;">
@@ -152,7 +181,45 @@
                 </div>
               </div>
 
-              <!-- Execution Metrics Card -->
+              <!-- 2. Interactive Array Modifications Card (Insert / Delete Slide) -->
+              <div class="panel-card">
+                <div class="panel-card-title">Interactive Sandbox Operations</div>
+                
+                <!-- Insert at index -->
+                <div class="op-row">
+                  <span style="font-size: 11px; font-weight: 700; width: 45px;">Insert:</span>
+                  <input type="number" id="insert-val" value="42" placeholder="Val" title="Value to insert">
+                  <span style="font-size: 11px;">at index</span>
+                  <input type="number" id="insert-idx" value="2" min="0" placeholder="Idx" title="Index position">
+                  <button id="btn-do-insert" class="btn-secondary" style="font-size: 11px;">Insert</button>
+                </div>
+
+                <!-- Delete at index -->
+                <div class="op-row" style="margin-top: 4px;">
+                  <span style="font-size: 11px; font-weight: 700; width: 45px;">Delete:</span>
+                  <span style="font-size: 11px;">at index</span>
+                  <input type="number" id="delete-idx" value="1" min="0" placeholder="Idx" title="Index position">
+                  <button id="btn-do-delete" class="btn-secondary" style="font-size: 11px;">Delete</button>
+                </div>
+
+                <!-- Pointer Management -->
+                <div style="border-top: 1px solid var(--border-light); padding-top: 8px; margin-top: 4px;">
+                  <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 6px;">
+                    Custom Draggable Pointers
+                  </div>
+                  <div class="op-row">
+                    <input type="text" id="new-ptr-name" value="ptr" placeholder="Name (e.g. i, head)" style="width: 80px;">
+                    <span style="font-size: 11px;">at index</span>
+                    <input type="number" id="new-ptr-idx" value="0" min="0" style="width: 50px;">
+                    <button id="btn-add-pointer" class="btn-secondary" style="font-size: 11px;">+ Add Pointer</button>
+                  </div>
+                  <div id="user-pointers-list" style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;">
+                    <!-- Active user pointers rendered here -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. Execution Metrics Card -->
               <div class="panel-card">
                 <div class="panel-card-title">Live Execution State</div>
                 <div class="metrics-grid">
@@ -161,7 +228,7 @@
                     <span class="metric-value" id="metric-comparisons">0</span>
                   </div>
                   <div class="metric-box">
-                    <span class="metric-label">Swaps</span>
+                    <span class="metric-label">Swaps / Shifts</span>
                     <span class="metric-value" id="metric-swaps">0</span>
                   </div>
                 </div>
@@ -173,7 +240,7 @@
                 </div>
               </div>
 
-              <!-- Code Synchronization Panel Card -->
+              <!-- 4. Code Synchronization Panel Card -->
               <div class="code-panel">
                 <div class="code-header">
                   <span id="code-title">Bubble Sort (Java)</span>
@@ -184,11 +251,11 @@
                 </div>
               </div>
 
-              <!-- Command Console Card -->
+              <!-- 5. Command Console Card -->
               <div class="panel-card">
-                <div class="panel-card-title">Console Command</div>
+                <div class="panel-card-title">Mini Command Console</div>
                 <div class="console-box">
-                  <input type="text" id="console-input" placeholder="Type: run, reset, random...">
+                  <input type="text" id="console-input" placeholder="Commands: push 5, pop, insert 2 7, delete 1, run binarysearch...">
                 </div>
                 <div class="shortcuts-hint">
                   Shortcuts: <span class="kbd">Space</span> Play/Pause &nbsp;
@@ -210,6 +277,8 @@
   <script src="js/api.js"></script>
   <script src="js/renderers/array.js"></script>
   <script src="js/player.js"></script>
+  <script src="js/concept.js"></script>
+  <script src="js/roadmap.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
