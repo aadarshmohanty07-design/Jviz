@@ -1,0 +1,47 @@
+{
+  "topics": [
+    {
+      "id": "arrays",
+      "name": "Arrays & Strings",
+      "description": "Contiguous memory structures with O(1) random access, sliding windows, and pointer techniques.",
+      "nodes": [
+        { "id": "array-basics", "title": "Array Fundamentals", "conceptId": "array", "preset": "array", "x": 100, "y": 80, "prereqs": [] },
+        { "id": "two-pointers", "title": "Two Pointers Technique", "conceptId": "twopointers", "preset": "twoPointers", "x": 300, "y": 80, "prereqs": ["array-basics"] },
+        { "id": "sliding-window", "title": "Sliding Window", "conceptId": "slidingwindow", "preset": "slidingWindow", "x": 520, "y": 80, "prereqs": ["array-basics"] }
+      ]
+    },
+    {
+      "id": "searching-sorting",
+      "name": "Searching & Sorting",
+      "description": "Core algorithms for locating items and ordering datasets efficiently.",
+      "nodes": [
+        { "id": "linear-search", "title": "Linear Search", "conceptId": "linearsearch", "preset": "linearSearch", "x": 100, "y": 200, "prereqs": ["array-basics"] },
+        { "id": "binary-search", "title": "Binary Search", "conceptId": "binarysearch", "preset": "binarySearch", "x": 300, "y": 200, "prereqs": ["linear-search"] },
+        { "id": "bubble-sort", "title": "Bubble Sort", "conceptId": "bubblesort", "preset": "bubbleSort", "x": 100, "y": 300, "prereqs": ["array-basics"] },
+        { "id": "selection-sort", "title": "Selection Sort", "conceptId": "selectionsort", "preset": "selectionSort", "x": 280, "y": 300, "prereqs": ["bubble-sort"] },
+        { "id": "insertion-sort", "title": "Insertion Sort", "conceptId": "insertionsort", "preset": "insertionSort", "x": 460, "y": 300, "prereqs": ["selection-sort"] },
+        { "id": "merge-sort", "title": "Merge Sort", "conceptId": "mergesort", "preset": "mergeSort", "x": 640, "y": 300, "prereqs": ["insertion-sort"] },
+        { "id": "quick-sort", "title": "Quick Sort", "conceptId": "quicksort", "preset": "quickSort", "x": 820, "y": 300, "prereqs": ["merge-sort"] }
+      ]
+    },
+    {
+      "id": "stacks-queues",
+      "name": "Stacks & Queues",
+      "description": "Restricted-access linear structures governing order of arrival and retrieval.",
+      "nodes": [
+        { "id": "stack-basics", "title": "Stack (LIFO)", "conceptId": "stack", "preset": "stack", "x": 120, "y": 420, "prereqs": ["array-basics"] },
+        { "id": "queue-basics", "title": "Queue (FIFO)", "conceptId": "queue", "preset": "queue", "x": 340, "y": 420, "prereqs": ["array-basics"] }
+      ]
+    },
+    {
+      "id": "linked-structures",
+      "name": "Linked Lists & Trees",
+      "description": "Node-and-pointer based flexible memory allocations.",
+      "nodes": [
+        { "id": "singly-linked-list", "title": "Singly Linked List", "conceptId": "linkedlist", "preset": "linkedlist", "x": 120, "y": 540, "prereqs": ["array-basics"] },
+        { "id": "bst", "title": "Binary Search Tree", "conceptId": "bst", "preset": "bst", "x": 340, "y": 540, "prereqs": ["singly-linked-list"] },
+        { "id": "graphs", "title": "Graph Traversal", "conceptId": "graph", "preset": "graph", "x": 560, "y": 540, "prereqs": ["bst", "queue-basics"] }
+      ]
+    }
+  ]
+}

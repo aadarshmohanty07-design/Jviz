@@ -1,0 +1,31 @@
+{
+  "id": "mergesort",
+  "title": "Merge Sort",
+  "intuition": "Divide the array in half, sort each half recursively, then merge the two sorted halves.",
+  "whyExists": "Guarantees $O(n \\log n)$ worst-case time complexity while maintaining stability (equal elements preserve relative order).",
+  "analogy": "Sorting a massive deck of papers by splitting it among friends, each sorting their half, then cleanly interleaving the stacks.",
+  "coreIdea": "A classic <b>divide-and-conquer</b> algorithm. The array is split at <code>mid = (l + r) / 2</code> until single-element base cases are reached. The <code>merge()</code> function combines two sorted subarrays using two moving pointers into an auxiliary buffer, copying back in $O(n)$ time per level.",
+  "diagramType": "array",
+  "diagramData": [38, 27, 43, 3, 9, 82, 10],
+  "complexity": {
+    "time": {
+      "best": "O(n log n)",
+      "average": "O(n log n)",
+      "worst": "O(n log n)"
+    },
+    "space": "O(n) auxiliary",
+    "reason": "Recursion tree has depth log2(n), and merging across each level takes linear O(n) work."
+  },
+  "pitfalls": [
+    "High space overhead: requires allocating an auxiliary array for the merge buffer.",
+    "Integer overflow when calculating midpoint: use l + (r - l) / 2 rather than (l + r) / 2.",
+    "Losing stability by using < instead of <= when comparing elements from left and right halves."
+  ],
+  "playgroundPreset": {
+    "target": "mergeSort",
+    "input": [38, 27, 43, 3, 9, 82, 10],
+    "mode": "array"
+  },
+  "prev": "insertionsort",
+  "next": "quicksort"
+}

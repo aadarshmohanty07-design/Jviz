@@ -1,0 +1,31 @@
+{
+  "id": "insertionsort",
+  "title": "Insertion Sort",
+  "intuition": "Builds a sorted array one element at a time by sliding each new element left into its correct slot.",
+  "whyExists": "Highly efficient on small datasets ($n < 20$) and nearly-sorted arrays ($O(n)$ time), serving as the base case in hybrid algorithms like Timsort.",
+  "analogy": "Sorting playing cards in your hand as they are dealt: picking each new card and sliding it between cards of lower and higher rank.",
+  "coreIdea": "Picks the next element as <code>key = a[i]</code>, shifts all preceding elements that are strictly greater than <code>key</code> one position to the right, and drops <code>key</code> into the opened gap at <code>j + 1</code>.",
+  "diagramType": "array",
+  "diagramData": [12, 11, 13, 5, 6],
+  "complexity": {
+    "time": {
+      "best": "O(n) on already sorted input",
+      "average": "O(n²)",
+      "worst": "O(n²) on reverse sorted input"
+    },
+    "space": "O(1) in-place",
+    "reason": "Only compares and shifts elements that are strictly inverted."
+  },
+  "pitfalls": [
+    "Overwriting a[i] before saving it into the temporary key variable.",
+    "Off-by-one underflow when j reaches -1 in the while loop.",
+    "Performing unnecessary full swaps instead of single-direction right shifts."
+  ],
+  "playgroundPreset": {
+    "target": "insertionSort",
+    "input": [12, 11, 13, 5, 6],
+    "mode": "array"
+  },
+  "prev": "selectionsort",
+  "next": "mergesort"
+}

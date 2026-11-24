@@ -1,0 +1,32 @@
+{
+  "id": "binarysearch",
+  "title": "Binary Search",
+  "intuition": "Halves the remaining search window in every comparison by testing the midpoint of a sorted array.",
+  "whyExists": "Provides logarithmic $O(\\log n)$ lookup time on sorted datasets, reducing a billion elements to at most 30 comparisons.",
+  "analogy": "Looking up a word in a printed physical dictionary: you flip open to the middle, check the letter, and discard the unneeded half.",
+  "coreIdea": "Maintains boundaries <code>low</code> and <code>high</code>. Evaluates <code>mid = low + (high - low) / 2</code>. If <code>a[mid] == target</code>, search succeeds. If <code>a[mid] < target</code>, target must reside in right half, so <code>low = mid + 1</code>. Otherwise, <code>high = mid - 1</code>.",
+  "diagramType": "array",
+  "diagramData": [3, 9, 14, 19, 27, 33, 42, 58],
+  "complexity": {
+    "time": {
+      "best": "O(1) target at middle",
+      "average": "O(log n)",
+      "worst": "O(log n)"
+    },
+    "space": "O(1) iterative",
+    "reason": "Search space n is halved at each step: n / 2^k = 1 => k = log2(n)."
+  },
+  "pitfalls": [
+    "Running binary search on an unsorted array produces incorrect results silently.",
+    "Integer overflow bug in midpoint: (low + high) / 2 can overflow for large indices. Always use low + (high - low) / 2.",
+    "Loop boundary conditions: using low < high instead of low <= high can miss the target when one element remains."
+  ],
+  "playgroundPreset": {
+    "target": "binarySearch",
+    "input": [3, 9, 14, 19, 27, 33, 42, 58],
+    "args": { "targetValue": 27 },
+    "mode": "array"
+  },
+  "prev": "quicksort",
+  "next": "twopointers"
+}

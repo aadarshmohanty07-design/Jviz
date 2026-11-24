@@ -1,0 +1,31 @@
+{
+  "id": "bubblesort",
+  "title": "Bubble Sort",
+  "intuition": "Repeatedly steps through the array, swapping adjacent inverted pairs until the largest elements float to the top.",
+  "whyExists": "Serves as the canonical introductory sorting algorithm demonstrating pairwise element comparisons and invariant maintenance.",
+  "analogy": "Air bubbles in water: larger bubbles rise to the surface faster than smaller ones.",
+  "coreIdea": "In each pass, the pointer <code>j</code> sweeps from 0 to <code>n - i - 1</code>. Whenever <code>a[j] > a[j+1]</code>, the two elements are swapped. After pass <code>i</code>, the element at index <code>n - i - 1</code> is guaranteed to be in its permanent sorted location.",
+  "diagramType": "array",
+  "diagramData": [5, 2, 9, 1, 6],
+  "complexity": {
+    "time": {
+      "best": "O(n) with early termination flag",
+      "average": "O(n²)",
+      "worst": "O(n²) reverse sorted"
+    },
+    "space": "O(1) auxiliary",
+    "reason": "Performs (n-1) + (n-2) + ... + 1 = n(n-1)/2 comparisons in the worst case in-place."
+  },
+  "pitfalls": [
+    "Iterating to index n instead of n - 1 causing IndexOutOfBoundsException.",
+    "Failing to shrink the inner loop bound (n - i - 1), wasting time on already-sorted suffix.",
+    "Forgetting to break early if no swaps occurred during an entire pass."
+  ],
+  "playgroundPreset": {
+    "target": "bubbleSort",
+    "input": [5, 2, 9, 1, 5, 6],
+    "mode": "array"
+  },
+  "prev": "queue",
+  "next": "selectionsort"
+}

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PLAYGROUND.CSS - Two-Column Sandbox Layout, Canvas & Inspector
+   PLAYGROUND.CSS - Two-Column Sandbox Layout, Interactivity & Controls
    ========================================================================== */
 
 .playground-container {
@@ -22,8 +22,8 @@
 
 /* Canvas Header Toolbar */
 .canvas-toolbar {
-  height: 44px;
-  border-bottom: 1px solid var(--border-dark);
+  height: 48px;
+  border-bottom: 2px solid var(--border-dark);
   background: var(--bg-surface);
   display: flex;
   align-items: center;
@@ -36,26 +36,45 @@
 .canvas-toolbar-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .toolbar-title {
-  font-weight: 700;
-  font-size: 13px;
+  font-weight: 800;
+  font-size: 13.5px;
   color: var(--text-primary);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
-.toolbar-tag {
+/* Mode Switcher Pills (Array, Stack, Queue) */
+.mode-toggle-group {
+  display: flex;
   background: #ffffff;
   border: 1px solid var(--border-dark);
-  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.mode-btn {
+  border: none;
+  border-right: 1px solid var(--border-dark);
+  border-radius: 0;
+  padding: 4px 10px;
   font-size: 11px;
   font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.mode-btn:last-child {
+  border-right: none;
+}
+
+.mode-btn.active {
+  background: var(--primary);
+  color: #ffffff;
 }
 
 .btn-icon {
@@ -71,8 +90,7 @@
   flex: 1;
   position: relative;
   background-color: var(--bg-primary);
-  background-image: 
-    radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+  background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
   background-size: 24px 24px;
   overflow: hidden;
   cursor: grab;
@@ -234,10 +252,6 @@
   transition: transform 0.1s ease;
 }
 
-.timeline-scrubber::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-}
-
 .speed-control {
   display: flex;
   align-items: center;
@@ -264,11 +278,10 @@
   flex-direction: column;
   background: var(--bg-secondary);
   overflow: hidden;
-  min-width: 320px;
-  max-width: 480px;
+  min-width: 340px;
+  max-width: 500px;
 }
 
-/* Sidebar Section Headers */
 .sidebar-tabs {
   display: flex;
   background: var(--bg-surface);
@@ -305,7 +318,7 @@
   padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 /* Cards */
@@ -321,8 +334,8 @@
 }
 
 .panel-card-title {
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11.5px;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-secondary);
@@ -336,8 +349,18 @@
   gap: 8px;
 }
 
-.input-row input {
+.input-row input, .input-row select {
   flex: 1;
+}
+
+.op-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.op-row input {
+  width: 60px;
 }
 
 .metrics-grid {
@@ -392,7 +415,7 @@
 }
 
 .code-container {
-  max-height: 220px;
+  max-height: 200px;
   overflow-y: auto;
   font-family: var(--font-mono);
   font-size: 12px;
@@ -466,4 +489,28 @@
   font-family: var(--font-mono);
   font-weight: 700;
   color: var(--text-primary);
+}
+
+/* Pointer tag pills */
+.pointer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: #064e3b;
+}
+
+.btn-del-pointer {
+  background: transparent;
+  border: none;
+  font-size: 12px;
+  color: #e11d48;
+  cursor: pointer;
+  padding: 0;
 }
