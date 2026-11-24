@@ -1,0 +1,119 @@
+/* ==========================================================================
+   LAYOUT.CSS - App Shell, Navigation & View Container
+   ========================================================================== */
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Header & Navbar */
+.navbar {
+  height: 52px;
+  background: var(--bg-primary);
+  border-bottom: 2px solid var(--border-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+}
+
+.brand-badge {
+  background: var(--border-dark);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+}
+
+.nav-btn:hover {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border-color: var(--border-light);
+}
+
+.nav-btn.active {
+  background: var(--primary-light);
+  color: var(--text-primary);
+  border-color: var(--border-dark);
+}
+
+.nav-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.25);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* Views Container */
+.views-wrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.view-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  background: var(--bg-secondary);
+  overflow: auto;
+}
+
+.view-section.active {
+  display: flex;
+}

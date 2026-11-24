@@ -1,0 +1,169 @@
+/* ==========================================================================
+   THEME.CSS - Color Palette & Base Typography
+   Palette: Smooth White Background, Emerald Green Text, Black Diagrams
+   ========================================================================== */
+
+:root {
+  /* Backgrounds: Smooth Whites */
+  --bg-primary: #ffffff;
+  --bg-secondary: #fbfdfc;
+  --bg-surface: #f4f8f5;
+  --bg-elevated: #eaf2ed;
+  --bg-card: #ffffff;
+  --border-light: #e1ebe4;
+  --border-dark: #000000;
+
+  /* Typography & Text: Emerald Green Tones */
+  --text-primary: #064e3b;    /* Deep, high-contrast forest-emerald */
+  --text-secondary: #065f46;  /* Rich emerald */
+  --text-accent: #059669;     /* Vibrant emerald */
+  --text-muted: #10b981;      /* Mid emerald green */
+  --text-dim: #34d399;        /* Light emerald green */
+  --text-inverse: #ffffff;
+
+  /* Accent & Interactive States */
+  --primary: #059669;
+  --primary-hover: #047857;
+  --primary-active: #064e3b;
+  --primary-light: #ecfdf5;
+
+  /* Diagramming: Crisp Black Lines & Accents */
+  --diagram-bg: #ffffff;
+  --diagram-stroke: #000000;
+  --diagram-node-border: #000000;
+  --diagram-node-fill: #ffffff;
+  --diagram-edge: #000000;
+  --diagram-text: #064e3b;
+  --diagram-grid: #eef4f0;
+
+  /* Semantic Highlights */
+  --color-active: #d97706;     /* Amber: currently comparing */
+  --color-active-fill: #fef3c7;
+  --color-sorted: #059669;     /* Emerald: sorted/settled */
+  --color-sorted-fill: #d1fae5;
+  --color-visited: #0284c7;    /* Sky: visited / explored */
+  --color-frontier: #0d9488;   /* Teal: frontier/queue */
+  --color-conflict: #e11d48;   /* Rose: conflict/discarded */
+
+  /* Shadows & Layout Metrics */
+  --shadow-sm: 0 1px 2px rgba(6, 78, 59, 0.05);
+  --shadow-md: 0 4px 12px rgba(6, 78, 59, 0.08);
+  --shadow-lg: 0 10px 24px rgba(6, 78, 59, 0.12);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, Monaco, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--text-accent);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid var(--border-dark);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+button:hover:not(:disabled) {
+  background: var(--bg-elevated);
+  transform: translateY(-1px);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  border-color: var(--border-light);
+}
+
+button.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary-hover);
+}
+
+button.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 13px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2);
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
